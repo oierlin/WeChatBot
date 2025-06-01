@@ -66,6 +66,7 @@ if __name__ == "__main__":
 
 
     wx = wxauto.WeChat()
+    robot_name = '艾拉'  # 机器人名称
     # listen_list = [
     #     'Oblivion',
     #     'test',
@@ -90,9 +91,9 @@ if __name__ == "__main__":
                 print(msgtype)
                 print(f'【{who}】：{content}')
                 if msgtype == 'friend' or msgtype == 'self':
-                    if(content[:3]=='@艾拉'):
+                    if(content[:len(robot_name)+1]==('@'+robot_name)):
                         print("call me")
-                        content = content[3:]
+                        content = content[len(robot_name)+1:]
                         print(content)
                         answer = processMsg(who, content)
                         print(content,answer)

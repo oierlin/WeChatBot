@@ -11,6 +11,7 @@ gpt = openai.OpenAI()
 import wxauto
 import time
 wx = wxauto.WeChat()
+robot_name = '艾拉'  # 机器人名称
 listen_list = [
     'Oblivion',
     'test',
@@ -31,9 +32,9 @@ while True:
             content = msg.content    # 获取消息内容，字符串类型的消息内容
             print(f'【{who}】：{content}')
             if msgtype == 'friend':
-                if(content[:3]=='@艾拉'):
+                if(content[:len(robot_name)+1]==('@'+robot_name)):
                     print("call me")
-                    content = content[3:]
+                    content = content[len(robot_name)+1:]
                     print(content)
                     response = deepseek.chat.completions.create(
                         model="deepseek-chat",

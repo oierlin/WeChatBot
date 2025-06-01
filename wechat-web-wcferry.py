@@ -97,7 +97,7 @@ from wcferry import Wcf, WxMsg
 wcf = Wcf()
 print(wcf.is_login())
 print("login user:",wcf.get_self_wxid())
-
+robot_name = '艾拉'  # 机器人名称
 chatlog = {}
 
 rooms = ['49806583966@chatroom','47511599819@chatroom','48274704185@chatroom']
@@ -109,7 +109,7 @@ def processMsg(msg: WxMsg):
     # if msg.from_group():return # 不回复群消息（可选）
     # if msg.sender == "wxid_32vg1ruxuzy322": # 填入发送者的wxid，只回他的消息（可选）
     
-    if(msg.content[:3]!='@艾拉' and msg.from_group()):
+    if(msg.content[:len(robot_name)+1]!=('@'+robot_name) and msg.from_group()):
         print("not call me")
         return
     sender = msg.roomid
@@ -131,7 +131,7 @@ def processMsg(msg: WxMsg):
     content = "我:"+msg.content+'\n'+'模型：'
     print("sender:",sender)
     chatlog[sender] = chatlog.get(sender, '')+content
-    answer,success = ask_web(msg.content.removeprefix("@艾拉"))
+    answer,success = ask_web(msg.content.removeprefix("@"+robot_name))
     # answer,success = ask_deepseek(chatlog[sender],
     #                       key = "15c7cc86cc4e44aa978cbbebd70f7975",
     #                       url = " https://genaiapi.shanghaitech.edu.cn/api/v1/start/chat/completions",
